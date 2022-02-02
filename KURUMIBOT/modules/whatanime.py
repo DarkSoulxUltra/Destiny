@@ -54,7 +54,7 @@ async def whatanime(c: Client, m: Message):
         if not getattr(reply, 'empty', True):
             media = reply.photo or reply.animation or reply.video or reply.document
     if not media:
-        await m.reply_text('That's not how it works dude! Please reply it to a Photo or Gif or Video to see the results. They might not be accurate though.')
+        await m.reply_text("That's not how it works dude! Please reply it to a Photo or Gif or Video to see the results. They might not be accurate though.")
         return
     with tempfile.TemporaryDirectory() as tempdir:
         reply = await m.reply_text('Downloading...')
