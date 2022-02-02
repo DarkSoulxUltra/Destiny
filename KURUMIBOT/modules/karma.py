@@ -7,8 +7,7 @@ from pyrogram import filters
 
 
 regex_upvote = r"^((?i)\+|\+\+|\+1|thx|tnx|ty|thank you|thanx|thanks|pro|cool|good|👍|nice|noice|piro|great)$"
-regex_downvote = r"^(\-|\-\-|\-1|👎|noob|Noob|gross|fuck off
-|a'hole|asshole)$"
+regex_downvote = r"^(\-|\-\-|\-1|👎|noob|Noob|gross|fuck off|a'hole|asshole)$"
 
 
 @EREN.on_message(
