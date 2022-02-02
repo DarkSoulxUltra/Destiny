@@ -2,8 +2,7 @@ import threading
 
 from KURUMIBOT import dispatcher
 from KURUMIBOT.modules.sql import BASE, SESSION
-from sqlalchemy import (Column, ForeignKey, Integer, String, UnicodeText,
-                        UniqueConstraint, func)
+from sqlalchemy import (Column, ForeignKey, Integer, String, UnicodeText, UniqueConstraint, func)
 
 
 class Users(BASE):
@@ -44,17 +43,14 @@ class ChatMembers(BASE):
         Integer,
         ForeignKey("users.user_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False)
-    __table_args__ = (UniqueConstraint('chat', 'user',
-                                       name='_chat_members_uc'),)
+    __table_args__ = (UniqueConstraint('chat', 'user', name='_chat_members_uc'),)
 
     def __init__(self, chat, user):
         self.chat = chat
         self.user = user
 
     def __repr__(self):
-        return "<Chat user {} ({}) in chat {} ({})>".format(
-            self.user.username, self.user.user_id, self.chat.chat_name,
-            self.chat.chat_id)
+        return "<Chat user {} ({}) in chat {} ({})>".format(self.user.username, self.user.user_id, self.chat.chat_name,self.chat.chat_id)
 
 
 Users.__table__.create(checkfirst=True)
