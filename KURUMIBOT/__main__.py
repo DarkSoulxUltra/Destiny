@@ -4,20 +4,15 @@ import re
 from sys import argv
 from typing import Optional
 
-from KURUMIBOT import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
-                          OWNER_ID, PORT, SUPPORT_CHAT, TOKEN, URL, WEBHOOK,
-                          SUPPORT_CHAT, dispatcher, StartTime, telethn, updater)
+from KURUMIBOT import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER, OWNER_ID, PORT, SUPPORT_CHAT, TOKEN, URL, WEBHOOK, SUPPORT_CHAT, dispatcher, StartTime, telethn, updater)
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
 from KURUMIBOT.modules import ALL_MODULES
 from KURUMIBOT.modules.helper_funcs.chat_status import is_user_admin
 from KURUMIBOT.modules.helper_funcs.misc import paginate_modules
-from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
-                      Update)
-from telegram.error import (BadRequest, ChatMigrated, NetworkError,
-                            TelegramError, TimedOut, Unauthorized)
-from telegram.ext import (CallbackContext, CallbackQueryHandler, CommandHandler,
-                          Filters, MessageHandler)
+from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update)
+from telegram.error import (BadRequest, ChatMigrated, NetworkError, TelegramError, TimedOut, Unauthorized)
+from telegram.ext import (CallbackContext, CallbackQueryHandler, CommandHandler, Filters, MessageHandler)
 from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
 from telegram.utils.helpers import escape_markdown
 
@@ -69,29 +64,8 @@ Helpful commands:
 All commands can be used with the following: / !
 List of all the Modules:
 """.format(
-    dispatcher.bot.first_name,
-    "" if not ALLOW_EXCL else "📝All commands can either be used with / or !.",
-)
-buttons = [
-    [
-                        InlineKeyboardButton(
-                            text=f"Add Me To Your Group",
-                            url=f"https://telegram.dog/Destiny_x_Bot?startgroup=true")
-                    ],
-                   [
-                       InlineKeyboardButton(text="[『 Help 』]", callback_data="help_back"),
-                       InlineKeyboardButton(text="❔ Chat and Req Anime?", url="https://t.me/tas_support"),
-                       InlineKeyboardButton(text="[『 Inline 』]", switch_inline_query_current_chat=""),
-                     ],
-                    [                  
-                       InlineKeyboardButton(
-                             text="🚑 Support",
-                             url=f"https://telegram.dog/unmei_support"),
-                       InlineKeyboardButton(
-                             text="📢 Updates",
-                             url="https://t.me/unmei_updates")
-                     ], 
-    ]
+    dispatcher.bot.first_name, "" if not ALLOW_EXCL else "📝All commands can either be used with / or !.")
+buttons = [[InlineKeyboardButton(text=f"Add Me To Your Group",url=f"https://telegram.dog/Destiny_x_Bot?startgroup=true")],[InlineKeyboardButton(text="[『 Help 』]", callback_data="help_back"),InlineKeyboardButton(text="❔ Chat and Req Anime?", url="https://t.me/tas_support"),InlineKeyboardButton(text="[『 Inline 』]", switch_inline_query_current_chat=""),],[InlineKeyboardButton(text="🚑 Support",url=f"https://telegram.dog/unmei_support"),InlineKeyboardButton(text="📢 Updates",url="https://t.me/unmei_updates")]]
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -407,29 +381,21 @@ def get_help(update: Update, context: CallbackContext):
 def send_settings(chat_id, user_id, user=False):
     if user:
         if USER_SETTINGS:
-            settings = "\n\n".join("*{}*:\n{}".format(
-                mod.__mod_name__, mod.__user_settings__(user_id))
-                                   for mod in USER_SETTINGS.values())
+            settings = "\n\n".join("*{}*:\n{}".format(mod.__mod_name__, mod.__user_settings__(user_id)) for mod in USER_SETTINGS.values())
             dispatcher.bot.send_message(
                 user_id,
                 "These are your current settings:" + "\n\n" + settings,
                 parse_mode=ParseMode.MARKDOWN)
 
         else:
-            dispatcher.bot.send_message(
-                user_id,
-                "Seems like there aren't any user specific settings available :'(",
-                parse_mode=ParseMode.MARKDOWN)
+            dispatcher.bot.send_message(user_id,"Seems like there aren't any user specific settings available :'(",parse_mode=ParseMode.MARKDOWN)
 
     else:
         if CHAT_SETTINGS:
             chat_name = dispatcher.bot.getChat(chat_id).title
             dispatcher.bot.send_message(
                 user_id,
-                text="Which module would you like to check {}'s settings for?"
-                .format(chat_name),
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)))
+                text="Which module would you like to check {}'s settings for?".format(chat_name),reply_markup=InlineKeyboardMarkup(paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)))
         else:
             dispatcher.bot.send_message(
                 user_id,
@@ -452,8 +418,7 @@ def settings_button(update: Update, context: CallbackContext):
             chat_id = mod_match.group(1)
             module = mod_match.group(2)
             chat = bot.get_chat(chat_id)
-            text = "*{}* has the following settings for the *{}* module:\n\n".format(escape_markdown(chat.title),
-                                                                                     CHAT_SETTINGS[module].__mod_name__) + \
+            text = "*{}* has the following settings for the *{}* module:\n\n".format(escape_markdown(chat.title),CHAT_SETTINGS[module].__mod_name__) + \
                    CHAT_SETTINGS[module].__chat_settings__(chat_id, user.id)
             query.message.reply_text(
                 text=text,
@@ -472,8 +437,7 @@ def settings_button(update: Update, context: CallbackContext):
                 "Hi there! There are quite a few settings for {} - go ahead and pick what "
                 "you're interested in.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(
-                        curr_page - 1, CHAT_SETTINGS, "stngs", chat=chat_id)))
+                    paginate_modules(curr_page - 1, CHAT_SETTINGS, "stngs", chat=chat_id)))
 
         elif next_match:
             chat_id = next_match.group(1)
