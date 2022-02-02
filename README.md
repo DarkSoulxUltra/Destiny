@@ -1,6 +1,6 @@
-# KURUMIBOT
+# Unmei Bot
 ![Unmei (Destiny)](https://telegra.ph/file/cb57c2af871c60bfdf732.jpg)
-# KURUMI Chan
+# Unmei (Destiny)
 [![Open Source Love svg2](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)!]
 
 
